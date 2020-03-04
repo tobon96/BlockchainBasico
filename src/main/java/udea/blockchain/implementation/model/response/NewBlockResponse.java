@@ -1,4 +1,4 @@
-package udea.blockchain.implementation.model;
+package udea.blockchain.implementation.model.response;
 
 import lombok.Getter;
 import lombok.Setter;

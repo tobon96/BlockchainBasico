@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import udea.blockchain.implementation.model.NewBlockRequest;
-import udea.blockchain.implementation.model.NewBlockResponse;
+import udea.blockchain.implementation.model.request.NewBlockRequest;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -15,5 +14,5 @@ import java.security.NoSuchAlgorithmException;
 public interface AddBlockController {
 
     @PostMapping(value = "/add-block", consumes = "application/json", produces = "application/json")
-    ResponseEntity<NewBlockResponse> addBlock(@RequestBody NewBlockRequest request) throws NoSuchAlgorithmException;
+    ResponseEntity<String> addBlock(@RequestBody NewBlockRequest request) throws NoSuchAlgorithmException;
 }

@@ -1,17 +1,19 @@
-package udea.blockchain.implementation.model;
+package udea.blockchain.implementation.model.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
 
 @Getter
 @Setter
 public class Blockchain {
 
     private ArrayList<Block> blockchain;
+    private int difficulty;
+    private int transactionLimit;
+    private double mine;
     private static Blockchain singleton;
 
     private Blockchain(Block genesis) {
@@ -19,10 +21,10 @@ public class Blockchain {
         this.blockchain.add(genesis);
     }
 
-    public static Blockchain getInstance() throws NoSuchAlgorithmException {
+    public static Blockchain getInstance() {
         if(singleton == null) {
             Block genesisBlock = new Block();
-            genesisBlock.computeHash();
+            //genesisBlock.computeHash();
             singleton = new Blockchain(genesisBlock);
         }
 
