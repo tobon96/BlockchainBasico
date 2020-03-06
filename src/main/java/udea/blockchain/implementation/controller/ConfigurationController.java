@@ -7,11 +7,8 @@ import udea.blockchain.implementation.model.response.ConfigurationResponse;
 
 @CrossOrigin
 @RequestMapping("/api")
-public interface BlockchainConfigurationController {
+public interface ConfigurationController {
 
-    @PutMapping(value = "/change-difficulty", produces = "application/json")
-    ResponseEntity<String> changeDifficulty(@RequestParam int difficulty );
-
-    @PostMapping(value = "/start-config", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/config", consumes = "application/json", produces = "application/json")
     ResponseEntity<ConfigurationResponse> blockchainInitialConfig(@RequestBody ConfigurationRequest request);
 }

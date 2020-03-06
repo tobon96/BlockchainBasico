@@ -9,5 +9,15 @@ import java.util.ArrayList;
 @Setter
 public class BlockBody {
     private ArrayList<Transaction> transactions;
-    private final int transactionLimit = 5;
+
+    public BlockBody() {
+        Transaction primitiveTransaction = new Transaction();
+        transactions = new ArrayList<Transaction>();
+        transactions.add(primitiveTransaction);
+    }
+
+    public BlockBody(ArrayList<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
 }
