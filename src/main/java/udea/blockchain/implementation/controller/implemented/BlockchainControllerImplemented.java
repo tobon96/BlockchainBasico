@@ -2,6 +2,8 @@ package udea.blockchain.implementation.controller.implemented;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import udea.blockchain.implementation.controller.BlockchainController;
 import udea.blockchain.implementation.model.model.Block;
@@ -13,7 +15,8 @@ import udea.blockchain.implementation.service.implemented.BlockchainServiceImple
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-@RestController
+@CrossOrigin
+@RequestMapping("/api")
 public class BlockchainControllerImplemented implements BlockchainController {
 
     @Autowired
