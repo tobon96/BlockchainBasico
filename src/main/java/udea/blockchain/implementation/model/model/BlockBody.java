@@ -10,12 +10,6 @@ import java.util.ArrayList;
 public class BlockBody {
     private ArrayList<Transaction> transactions;
 
-    public BlockBody() {
-        Transaction primitiveTransaction = new Transaction();
-        transactions = new ArrayList<Transaction>();
-        transactions.add(primitiveTransaction);
-    }
-
     public BlockBody(ArrayList<Transaction> transactions) {
         this.transactions = transactions;
     }

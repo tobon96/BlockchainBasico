@@ -14,6 +14,6 @@ import java.util.Optional;
 @RequestMapping("/api")
 public interface TransactionsController {
 
-    @PostMapping(value = "/config", consumes = "application/json", produces = "application/json")
-    ResponseEntity<Optional<ConfigurationResponse>> blockchainInitialConfig(@RequestBody Transaction request);
+    @PostMapping(value = "/add-transaction", consumes = "application/json", produces = "application/json")
+    ResponseEntity addTransaction(@RequestBody Transaction request) throws Exception;
 }

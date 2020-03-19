@@ -19,16 +19,14 @@ public class Blockchain {
     private double mine;
     private static Blockchain singleton;
 
-    private Blockchain(Block genesis) {
+    private Blockchain() {
         this.blockchain = new ArrayList<Block>();
-        this.blockchain.add(genesis);
     }
 
     public static Blockchain getInstance() {
         if (singleton == null) {
-            Block genesisBlock = new Block(difficulty);
             transactions = new ArrayList<Transaction>();
-            singleton = new Blockchain(genesisBlock);
+            singleton = new Blockchain();
         }
         return singleton;
     }
@@ -45,8 +43,9 @@ public class Blockchain {
         return difficulty;
     }
 
-    public String computeHash(Block block) throws NoSuchAlgorithmException, NoSuchAlgorithmException {
-        String textToHash = block.toString();
+    public static String computeHash(Block block) throws NoSuchAlgorithmException {
+        String textToHash = block.getHeader().getPreviousHash() + block.getHeader().getMerkleRoot() + block.getHeader().getNonce() +
+                block.getHeader().getDifficulty() + block.getHeader().getHeight() + block.getHeader().getTimestamp() + block.getBody().getTransactions();
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hashInBytes = md.digest(textToHash.getBytes(StandardCharsets.UTF_8));
 
@@ -57,7 +56,7 @@ public class Blockchain {
         return sb.toString();
     }
 
-    public String proof(Block block) throws NoSuchAlgorithmException {
+    public static String proof(Block block) throws NoSuchAlgorithmException {
         String target = new String(new char[difficulty]).replace('\0', '0');
         String hash = computeHash(block);
         while (!hash.substring(0, difficulty).equals(target)) {

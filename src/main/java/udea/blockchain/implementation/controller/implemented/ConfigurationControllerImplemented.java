@@ -8,6 +8,8 @@ import udea.blockchain.implementation.model.request.ConfigurationRequest;
 import udea.blockchain.implementation.model.response.ConfigurationResponse;
 import udea.blockchain.implementation.service.implemented.ConfigurationServiceImplemented;
 
+import java.security.NoSuchAlgorithmException;
+
 @RestController
 public class ConfigurationControllerImplemented implements ConfigurationController {
 
@@ -15,7 +17,7 @@ public class ConfigurationControllerImplemented implements ConfigurationControll
     private ConfigurationServiceImplemented configurationService;
 
     @Override
-    public ResponseEntity<ConfigurationResponse> blockchainInitialConfig(ConfigurationRequest request) {
+    public ResponseEntity<ConfigurationResponse> blockchainInitialConfig(ConfigurationRequest request) throws NoSuchAlgorithmException {
         return ResponseEntity.accepted().body(configurationService.setConfig(request));
     }
 }

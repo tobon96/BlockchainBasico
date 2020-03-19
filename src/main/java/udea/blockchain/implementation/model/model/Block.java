@@ -14,20 +14,13 @@ public class Block {
     private BlockHeader header;
     private BlockBody body;
 
-    public Block(int difficulty) {
+    public Block(int difficulty, ArrayList<Transaction> transactions) {
         this.header = new BlockHeader(difficulty);
-        this.body = new BlockBody();
+        this.body = new BlockBody(transactions);
     }
 
-    public Block(ArrayList<Transaction> transactions, int difficulty) {
-
+    public Block(BlockHeader header, BlockBody body) {
+        this.header = header;
+        this.body = body;
     }
-
-
-
-
-    /*
-
-
-     */
 }

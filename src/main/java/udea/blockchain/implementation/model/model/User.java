@@ -5,26 +5,35 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 
 @Getter
 @Setter
-@Document(collection = "Users")
+@Document(collection = "users")
 public class User {
+
     @Id
     private String id;
-    private String publicKey;
-    private String privateKey;
+    private byte[] publicKey;
+    private byte[] privateKey;
+    private String userType;
     private double balance;
-    private final KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
 
-    public User() throws NoSuchAlgorithmException {
-        keyPairGenerator.initialize(1024);
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
-        publicKey = keyPair.getPublic().toString();
-        privateKey = keyPair.getPrivate().toString();
+    public User(byte[] publicKey, byte[] privateKey, double balance) {
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
+        userType = "mine";
+        this.balance = balance;
+    }
+
+    public User(byte[] publicKey, byte[] privateKey, String userType) {
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
+        this.userType = userType;
         balance = 0;
     }
+
+    public User(){}
+
+
 }

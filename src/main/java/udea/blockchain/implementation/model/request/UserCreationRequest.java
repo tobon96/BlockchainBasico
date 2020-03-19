@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NewBlockRequest {
-    private String transactionData;
-    private int dificulty;
+public class UserCreationRequest {
+
+    private String userType;
 }

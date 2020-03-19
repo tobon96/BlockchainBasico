@@ -6,7 +6,11 @@ import udea.blockchain.implementation.model.model.User;
 import udea.blockchain.implementation.repository.BlockchainRepository;
 import udea.blockchain.implementation.service.UsersService;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UsersServiceImplemented implements UsersService {
@@ -14,11 +18,35 @@ public class UsersServiceImplemented implements UsersService {
     @Autowired
     BlockchainRepository usersRepository;
 
-    public User saveUser() throws NoSuchAlgorithmException {
-        User user = new User();
-        System.out.println(user.getPublicKey());
-        System.out.println(user.getPrivateKey());
-        //usersRepository.save(user);
+    @Override
+    public User saveUser(String usertype) throws NoSuchAlgorithmException {
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(1024);
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        User user = new User(keyPair.getPublic().getEncoded(), keyPair.getPrivate().getEncoded(), usertype);
+        usersRepository.save(user);
         return user;
     }
+
+    @Override
+    public User createMine(double balance) throws NoSuchAlgorithmException {
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(1024);
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        User user = new User(keyPair.getPublic().getEncoded(), keyPair.getPrivate().getEncoded(), balance);
+        usersRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public List<User> listUsers() {
+        return usersRepository.findAll();
+    }
+
+    @Override
+    public User findUser(String userKey) {
+        return usersRepository.findByPublicKey(userKey);
+    }
+
+
 }
