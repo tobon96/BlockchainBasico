@@ -3,20 +3,19 @@ package udea.blockchain.implementation.service.implemented;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import udea.blockchain.implementation.model.model.User;
-import udea.blockchain.implementation.repository.BlockchainRepository;
+import udea.blockchain.implementation.repository.UsersRepository;
 import udea.blockchain.implementation.service.UsersService;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UsersServiceImplemented implements UsersService {
 
     @Autowired
-    BlockchainRepository usersRepository;
+    UsersRepository usersRepository;
 
     @Override
     public User saveUser(String usertype) throws NoSuchAlgorithmException {

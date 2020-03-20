@@ -8,6 +8,7 @@ import udea.blockchain.implementation.model.model.Transaction;
 import udea.blockchain.implementation.model.model.User;
 import udea.blockchain.implementation.model.request.ConfigurationRequest;
 import udea.blockchain.implementation.model.response.ConfigurationResponse;
+import udea.blockchain.implementation.repository.BlockchainRepository;
 import udea.blockchain.implementation.service.ConfigurationService;
 
 import java.security.NoSuchAlgorithmException;
@@ -18,6 +19,9 @@ public class ConfigurationServiceImplemented implements ConfigurationService {
 
     @Autowired
     private UsersServiceImplemented usersServiceImplemented;
+
+    @Autowired
+    private BlockchainRepository blockchainRepository;
 
     @Override
     public ConfigurationResponse setConfig(ConfigurationRequest request) throws NoSuchAlgorithmException {
@@ -32,8 +36,10 @@ public class ConfigurationServiceImplemented implements ConfigurationService {
             ArrayList<Transaction> primitiveArray = new ArrayList<Transaction>();
             primitiveArray.add(primitiveTransaction);
             Block genesisBlock = new Block(Blockchain.getDifficulty(), primitiveArray);
+            genesisBlock.getHeader().setMerkleRoot(Blockchain.createMerkleTree(primitiveArray));
             Blockchain.getInstance().getBlockchain().add(genesisBlock);
             genesisBlock.getHeader().setHash(Blockchain.proof(genesisBlock));
+            blockchainRepository.save(genesisBlock);
         }
 
         return new ConfigurationResponse(Blockchain.getDifficulty() ,Blockchain.getInstance().getTransactionLimit(), Blockchain.getInstance().getMine(), "Configuration updated successfully");

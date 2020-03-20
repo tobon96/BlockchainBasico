@@ -1,9 +1,7 @@
 package udea.blockchain.implementation.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import udea.blockchain.implementation.model.model.User;
+import udea.blockchain.implementation.model.model.Block;
 
-public interface BlockchainRepository extends MongoRepository<User, String> {
-
-    User findByPublicKey(String publicKey);
+public interface BlockchainRepository extends MongoRepository<Block, String> {
 }
